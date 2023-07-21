@@ -5,15 +5,19 @@ public class Utente {
 	private String nome;
 	private String cognome;
 	private String indirizzo;
-	
-	public Utente(Integer id, String nome, String cognome, String indirizzo) {
+	private String utente;
+	private String password;
+
+	public Utente(Integer id, String nome, String cognome, String indirizzo, String utente, String password) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.indirizzo = indirizzo;
+		this.utente = utente;
+		this.password = password;
 	}
-
+	
 	public Utente() {
 		// TODO Auto-generated constructor stub
 	}
@@ -48,6 +52,22 @@ public class Utente {
 
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo = indirizzo;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUtente() {
+		return utente;
+	}
+
+	public void setUtente(String utente) {
+		this.utente = utente;
 	}
 	
 	

@@ -2,6 +2,7 @@ package it.db.test;
 
 import java.sql.Connection; 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -69,8 +70,8 @@ public class JDBCConnection implements Constants {
 				cognome = rs.getString("cognome");
 				indirizzo = rs.getString("indirizzo");
 				System.out.println(id + " " + nome + " " + cognome + " " + indirizzo);
-				Utente u = new Utente(id, nome, cognome, indirizzo);
-				utenti.add(u);
+				// Utente u = new Utente(id, nome, cognome, indirizzo);
+				// utenti.add(u);
 			}
 			
 			// chiusura del ResultSet
@@ -80,13 +81,62 @@ public class JDBCConnection implements Constants {
 			stmt.close();
 			
 			// chiusura della Connection
-			conn.close();
+			// conn.close();
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		String strsql = "insert into Utenti (nome, cognome, indirizzo)	values ( 'Albert', 'Einstein', 'Pavia')";
+		// insert new record 
+		try {
+			stmt = conn.createStatement();
+			int i = stmt.executeUpdate(strsql);
+			System.out.println("insert: " + i);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+		strsql = "delete from Utenti where nome = 'Mario'";
+		// insert new record 
+		try {
+			stmt = conn.createStatement();
+			int i = stmt.executeUpdate(strsql);
+			System.out.println("delete: " + i);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		strsql = "update Utenti set nome = 'Massimo' where cognome = 'Plank'";
+		// insert new record 
+		try {
+			stmt = conn.createStatement();
+			int i = stmt.executeUpdate(strsql);
+			System.out.println("update: " + i);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// ****************************************************************
+		// FORM WEB da cui arrivano i dati da inserire nel DB
+		// ****************************************************************
+		// regola 1: fare sempre una validazione dei campi.
+		// ****************************************************************
+		
+		// 2 usare il prepared statement 
+		strsql = "insert into Utenti (nome, cognome, indirizzo) values (?, ?, ?)";
+		// ****************************************************************
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(strsql);
+			pstmt.setString(1, "Enrico");
+			pstmt.setString(2, "Fermi");
+			pstmt.setString(3, "'--;");
+			int row = pstmt.executeUpdate();
+			System.out.println(row);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

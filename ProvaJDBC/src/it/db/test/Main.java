@@ -6,17 +6,15 @@ package it.db.test;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
  * @author marco
  *
  */
-public class Main {
+public class Main implements Constants {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList utenti = null;
@@ -30,6 +28,38 @@ public class Main {
 			Utente object = (Utente) it.next();
 			System.out.println(object.getNome());
 		}
+
+		utenti = (ArrayList) ud.getAll(STR_OB_NOME);
+		
+		it = utenti.iterator();
+		
+		while (it.hasNext()) {
+			Utente object = (Utente) it.next();
+			System.out.println(object.getNome());
+		}
+
+		utenti = (ArrayList) ud.getAll(STR_OB_COGNOME);
+		
+		it = utenti.iterator();
+		
+		while (it.hasNext()) {
+			Utente object = (Utente) it.next();
+			System.out.println(object.getNome());
+		}
+
+		utenti = (ArrayList) ud.getAll(STR_OB_INDIRIZZO);
+		
+		it = utenti.iterator();
+		
+		while (it.hasNext()) {
+			Utente object = (Utente) it.next();
+			System.out.println(object.getNome());
+		}
+		
+		
+		Optional<Utente> user = ud.get(13);
+		
+		System.out.println(user);
 		
 	}
 }

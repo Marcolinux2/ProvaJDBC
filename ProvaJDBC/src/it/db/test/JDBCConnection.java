@@ -41,6 +41,7 @@ public class JDBCConnection implements Constants {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://62.171.138.211:3306/TEST", usr, pwd
 			);
+			
 			System.out.println("Database connesso!");
 			// "jdbc:mysql://62.171.138.211:3306/TEST?user=root&password=Tripolo.8691";
 			

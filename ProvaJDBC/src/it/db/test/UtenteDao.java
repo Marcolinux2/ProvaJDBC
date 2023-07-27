@@ -2,6 +2,7 @@ package it.db.test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,8 +16,6 @@ public class UtenteDao implements Dao<Utente>, Constants {
 	private Connection conn;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-
 	}
 	
 	public UtenteDao() {
@@ -39,11 +38,88 @@ public class UtenteDao implements Dao<Utente>, Constants {
 	}
 
 	@Override
-	public Optional<Utente> get(long id) {
-		// TODO Auto-generated method stub
+	public Optional<Utente> get(long pk) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		String str_pk = Long.toString(pk);
+		String str_pk_2 = (pk + "");
+		
+		Integer id = null;
+		String nome = null;
+		String cognome = null;
+		String indirizzo = null;
+		String utente = null;
+		String password = null;
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(STRSQL_UTENTI_WHERE_ID);
+			pstmt.setString(1, str_pk);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				id = rs.getInt(1); 
+				nome = rs.getString(2); 
+				cognome = rs.getString("cognome");
+				indirizzo = rs.getString("indirizzo");
+				utente = rs.getString("utente");
+				password = rs.getString("password");
+				Utente u = new Utente(id, nome, cognome, indirizzo, utente, password);
+			}
+			
+			rs.close();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// return this.utenti;
 		return Optional.empty();
 	}
 
+	public List<Utente> getAll(String order) {
+		String strsql = "";
+		if (order.equals(STR_OB_NOME)) {
+			strsql = STRSQL_UTENTI_ORDER_BY_NOME;
+		} else if (order.equals(STR_OB_COGNOME)) {
+			strsql = STRSQL_UTENTI_ORDER_BY_COGNOME;
+		} else if (order.equals(STR_OB_INDIRIZZO)) {
+			strsql = STRSQL_UTENTI_ORDER_BY_INDIRIZZO;
+		}
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		Integer id = null;
+		String nome = null;
+		String cognome = null;
+		String indirizzo = null;
+		String utente = null;
+		String password = null;
+		
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(strsql);
+
+			while(rs.next()) {
+				id = rs.getInt(1); 
+				nome = rs.getString(2); 
+				cognome = rs.getString("cognome");
+				indirizzo = rs.getString("indirizzo");
+				utente = rs.getString("utente");
+				password = rs.getString("password");
+				Utente u = new Utente(id, nome, cognome, indirizzo, utente, password);
+				this.utenti.add(u);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return this.utenti;
+	}
+	
 	@Override
 	public List<Utente> getAll() {
 		

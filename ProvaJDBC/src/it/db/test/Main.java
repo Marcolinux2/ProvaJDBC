@@ -56,6 +56,10 @@ public class Main implements Constants {
 			System.out.println(object.getNome());
 		}
 		
+		Sigleton s = Sigleton.getInstance();
+		Sigleton s1 = Sigleton.getInstance();
+		Sigleton s2 = Sigleton.getInstance();
+		Sigleton s3 = Sigleton.getInstance();
 		
 		Optional<Utente> user = ud.get(13);
 		

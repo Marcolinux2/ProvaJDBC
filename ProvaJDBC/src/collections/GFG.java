@@ -57,7 +57,11 @@ class GFG {
 		ar.add(new Student(121, "Franco", "jaipur"));
 		ar.add(new Student(101, "Luigi", "Hongkong"));
 
-		
+		// ******************************************
+		// adesso entriamo in detached head
+		// ******************************************
+		// e ora ne facciamo un'altra
+		// ******************************************
 		// io sono una prova
 		// ********************
 		// Display message on console for better readability

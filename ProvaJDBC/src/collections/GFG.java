@@ -80,7 +80,7 @@ class GFG {
 		// Display message on console for better readability
 		System.out.println("\nSorted by name");
 
-		// // Again iterating over entries to print them
+		// ***** Again iterating over entries to print them
 		for (int i = 0; i < ar.size(); i++)
 			System.out.println(ar.get(i));
 	}
